@@ -10,9 +10,11 @@ import (
 	"golang.org/x/image/colornames"
 )
 
+// screen size.  shooting to make this configurable
 const WIDTH = 1024
 const HEIGHT = 768
 
+// draws a white line with a black outline.  using this for debugging right now.
 func drawLine(imd *imdraw.IMDraw, start pixel.Vec, end pixel.Vec, alpha float64) {
 	imd.SetColorMask(pixel.Alpha(alpha))
 	imd.Color = colornames.Black
@@ -55,6 +57,7 @@ func run() {
 		deltaX := 0.0
 		deltaY := 0.0
 
+		// controls are WASD for directions and mouse clicks to fire in direction of mouse pointer.
 		if win.Pressed(pixelgl.KeyS) && (p.Center().Y-playerSpeed) > 0 {
 			deltaY = playerSpeed * -1.0
 		}
@@ -74,6 +77,7 @@ func run() {
 		} else {
 			currentAlpha = 1.0
 		}
+		// TODO - make this fire bullets on a timer
 		if win.JustPressed(pixelgl.MouseButtonLeft) {
 			bHeap.Add(NewStraightBullet(
 				win,
