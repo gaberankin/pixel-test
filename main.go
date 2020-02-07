@@ -53,21 +53,22 @@ func run() {
 	for !win.Closed() {
 		pCenter := p.Center()
 		mPos := win.MousePosition()
+		winWidth, winHeight := win.Bounds().Size().XY()
 
 		deltaX := 0.0
 		deltaY := 0.0
 
 		// controls are WASD for directions and mouse clicks to fire in direction of mouse pointer.
-		if win.Pressed(pixelgl.KeyS) && (p.Center().Y-playerSpeed) > 0 {
+		if win.Pressed(pixelgl.KeyS) && (pCenter.Y-playerSpeed) > 0 {
 			deltaY = playerSpeed * -1.0
 		}
-		if win.Pressed(pixelgl.KeyW) && (p.Center().Y+playerSpeed) < cfg.Bounds.H() {
+		if win.Pressed(pixelgl.KeyW) && (pCenter.Y+playerSpeed) < winHeight {
 			deltaY = playerSpeed
 		}
-		if win.Pressed(pixelgl.KeyA) && (p.Center().X-playerSpeed) > 0 {
+		if win.Pressed(pixelgl.KeyA) && (pCenter.X-playerSpeed) > 0 {
 			deltaX = playerSpeed * -1.0
 		}
-		if win.Pressed(pixelgl.KeyD) && (p.Center().X+playerSpeed) < cfg.Bounds.W() {
+		if win.Pressed(pixelgl.KeyD) && (pCenter.X+playerSpeed) < winWidth {
 			deltaX = playerSpeed
 		}
 		p.Translate(pixel.V(deltaX, deltaY))
